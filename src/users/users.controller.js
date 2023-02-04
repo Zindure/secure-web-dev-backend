@@ -2,6 +2,9 @@ const usersService = require("./users.service");
 const passport = require("passport");
 const httpErrorHelper = require("../custom-errors/http-error.helper");
 const router = require("express").Router();
+const cors = require('cors');
+const {application} = require("express");
+
 
 async function controllerRegisterUser(req, res, next) {
   try {

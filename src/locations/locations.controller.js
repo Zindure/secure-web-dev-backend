@@ -5,6 +5,7 @@ const router = require("express").Router();
 const locationsService = require("./locations.service");
 const authorizationMiddleware = require("../authorization/authorization.middleware");
 const httpErrorHelper = require("../custom-errors/http-error.helper");
+const cors = require("cors");
 
 async function controllerCreateOneLocation(req, res) {
   const newLocation = await locationsService.createOne(req.body);
@@ -21,6 +22,9 @@ async function controllerGetAllLocations(req, res) {
   const limit = req.query.limit || 20;
   const offset = req.query.offset || 0;
   const locations = await locationsService.findAll(limit, offset);
+  res.header('Access-Control-Allow-Headers','Authorization' );
+  res.header("Access-Control-Allow-Origin", "http://localhost:8080"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "*");
   return res.status(200).send(locations);
 }
 
